@@ -18,37 +18,83 @@
             background-attachment: fixed;
             color: white;
         }
+
         .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 3rem;
+            background: black;
+            color: white;
+        }
+
+        .header img {
+            height: 60px;
+            border-radius: 10px;
+        }
+
+        .header-content {
+            flex-grow: 1;
             text-align: center;
-            padding: 2rem;
-            background: rgba(0, 102, 204, 0.8);
+            margin-right: 60px;
         }
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+
+        .header-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.2rem;
         }
-        #greeting {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-top: -1rem;
-            margin-bottom: 1rem;
+
+        .header-content p {
+            font-size: 1rem;
+            opacity: 0.9;
         }
+
+        .navbar {
+            background-color: #2D2D2D;
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .navbar a, .navbar select {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            
+        }
+
+        .navbar select {
+            padding: 5px;
+            background-color: #444;
+            color: white;
+            border-radius: 5px;
+            border: 1px solid #666;
+        }
+
         .search-bar {
             text-align: center;
-            margin-bottom: 1rem;
+            margin: 2rem 0rem;
         }
+
         .search-bar input {
-            padding: 10px;
+            padding: 8px;
             border-radius: 5px;
-            border: none;
+            border-color: #004d99;
             width: 250px;
         }
+
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             padding: 2rem;
         }
+
         .card {
             background: rgba(255, 255, 255, 0.9);
             color: #333;
@@ -58,20 +104,25 @@
             transition: transform 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
+
         .card:hover {
             transform: translateY(-10px);
         }
+
         .card h3 {
             margin-bottom: 0.5rem;
             color: #0066cc;
         }
+
         .emergency {
             background: rgba(255, 68, 68, 0.9);
             color: white;
         }
+
         .emergency h3 {
             color: white;
         }
+
         .btn {
             background: #0066cc;
             color: white;
@@ -83,15 +134,19 @@
             font-weight: bold;
             transition: background 0.3s;
         }
+
         .btn:hover {
             background: #004d99;
         }
+
         .btn-emergency {
             background: rgb(255, 0, 0);
         }
+
         .btn-emergency:hover {
             background: #c80303;
         }
+
         .footer {
             text-align: center;
             padding: 1rem;
@@ -101,25 +156,45 @@
     </style>
 </head>
 <body>
+
+    <!-- HEADER SECTION -->
     <div class="header">
-        <h1>Smart City Public Facilities & Emergency</h1>
-        <p>AI-Powered Convenience, Accessibility, and Safety</p>
+        <img src="logo.jpeg" alt="Smart City Logo">
+        <div class="header-content">
+            <h1>Smart City Public Facilities & Emergency</h1>
+            <p>AI-Powered Convenience, Accessibility, and Safety</p>
+        </div>
     </div>
 
-    <div id="greeting"></div>
+    <!-- NAVBAR SECTION (Moved below header) -->
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <select name="Modules" onchange="handleModuleSelect(this)">
+            <option value="">Modules</option>
+            <option value="News and Informations">News and Informations</option>
+            <option value="Public Facilities">Public Facilities</option>
+            <option value="Navigation Module">Navigation Module</option>
+        </select>
+        <a href="#">Get to Us</a>
+        <a href="#">About Us</a>
+    </nav>
 
+    <!-- SEARCH BAR -->
     <div class="search-bar">
         <input type="text" id="search" placeholder="Search Facility...">
     </div>
 
+    <!-- CARDS CONTAINER -->
     <div class="container" id="app">
-        
+        <!-- Facility cards will be dynamically generated here -->
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
-        <p>© <span id="year"></span> Smart City Project | College Submission</p>
+        <p>&copy; 2025 Smart City Management. All Rights Reserved.</p>
     </div>
 
+    <!-- SCRIPT -->
     <script>
         const facilities = [
             { title: "Taxi & E-Rickshaw", icon: "🚖", description: "Book the nearest taxi or e-rickshaw with real-time tracking.", buttonText: "Book Now", isEmergency: false },
@@ -137,7 +212,8 @@
             { title: "Water ATM Locator", icon: "🚰", description: "Find safe drinking water ATMs around you.", buttonText: "Locate ATM", isEmergency: false },
             { title: "Free Wi-Fi Zones", icon: "📶", description: "Connect to government-sponsored Wi-Fi hotspots.", buttonText: "Find Wi-Fi", isEmergency: false },
             { title: "Lost & Found", icon: "🔎", description: "Report or search lost public property.", buttonText: "Report/Search", isEmergency: false },
-            { title: "Smart Bus Tracker", icon: "🚌", description: "Track public buses in real-time and view ETAs.", buttonText: "Track Now", isEmergency: false }
+            { title: "Smart Bus Tracker", icon: "🚌", description: "Track public buses in real-time and view ETAs.", buttonText: "Track Now", isEmergency: false },
+            { title: "MOTO", icon: "🤝", description: "IF YOU SATISFY TELL OTHERS, IF YOU NOT TELL US", buttonText: "About us", isEmergency: false }
         ];
 
         const app = document.getElementById('app');
@@ -166,15 +242,10 @@
             });
         });
 
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        function getGreeting() {
-            const hour = new Date().getHours();
-            if (hour < 12) return "Good Morning 🌅";
-            else if (hour < 18) return "Good Afternoon ☀️";
-            else return "Good Evening 🌇";
+        function handleModuleSelect(selectElement) {
+            const value = selectElement.value;
+            if (value) alert(`Navigating to ${value}`);
         }
-        document.getElementById('greeting').innerText = getGreeting();
     </script>
 </body>
 </html>
